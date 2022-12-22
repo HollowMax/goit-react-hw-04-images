@@ -1,40 +1,37 @@
 import PropTypes from 'prop-types';
-import { Component } from 'react';
+import { useState } from 'react';
 import { ImageGalleryItem } from './ImageGalleryItem';
 import { Modal } from 'components/Modal/Modal';
 
-export class ImageGallery extends Component {
-  state = {
-    isModalOpen: false,
-    modalData: { tags: '', img: '' },
+export function ImageGallery({ list }) {
+  const [modal, setModal] = useState(false);
+  const [modalData, setModalData] = useState({ tasg: '', img: '' });
+
+  const onModal = (tags, img) => {
+    setModal(true);
+    setModalData({ tags, img });
   };
 
-  onModal = (tags, img) => {
-    this.setState({ isModalOpen: true, modalData: { tags, img } });
+  const onClose = () => {
+    setModal(false);
   };
 
-  onClose = () => {
-    this.setState({ isModalOpen: false });
-  };
-
-  render() {
-    return (
-      <>
-        <ul className="ImageGallery">
-          {this.props.list.map(el => (
-            <ImageGalleryItem
-              key={el.id}
-              web={el.webformatURL}
-              large={el.largeImageURL}
-              tags={el.tags}
-              onModal={this.onModal}
-            />
-          ))}
-        </ul>
-        {this.state.isModalOpen && <Modal data={this.state.modalData} onClose={this.onClose} />}
-      </>
-    );
-  }
+  return (
+    <>
+      <ul className="ImageGallery">
+        {list.map(el => (
+          <ImageGalleryItem
+            key={el.id}
+            web={el.webformatURL}
+            large={el.largeImageURL}
+            tags={el.tags}
+            onModal={onModal}
+          />
+        ))}
+      </ul>
+      {modal && <Modal data={modalData} onClose={onClose} />}
+    </>
+  );
 }
 
 ImageGallery.propTypes = {
