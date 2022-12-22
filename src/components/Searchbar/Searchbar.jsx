@@ -7,7 +7,7 @@ export class Searchbar extends Component {
   };
 
   componentDidUpdate(prevProps) {
-    if (prevProps.page !== this.props.page && this.props.page != 1) {
+    if (prevProps.page !== this.props.page && this.props.page !== 1) {
       this.handleFetch();
     }
   }
