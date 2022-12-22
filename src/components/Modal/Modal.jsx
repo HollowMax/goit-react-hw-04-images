@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Component } from 'react';
 import { createPortal } from 'react-dom';
 
@@ -33,3 +34,8 @@ export class Modal extends Component {
     );
   }
 }
+
+Modal.propTypes = {
+  onClose: PropTypes.func,
+  data: PropTypes.objectOf(PropTypes.string.isRequired).isRequired,
+};

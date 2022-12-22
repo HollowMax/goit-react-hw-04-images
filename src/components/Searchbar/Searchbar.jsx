@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Component } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 
@@ -56,3 +57,10 @@ export class Searchbar extends Component {
     );
   }
 }
+
+Searchbar.propTypes = {
+  onSearch: PropTypes.func.isRequired,
+  page: PropTypes.number.isRequired,
+  loading: PropTypes.func.isRequired,
+  reset: PropTypes.func.isRequired,
+};

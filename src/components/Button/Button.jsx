@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 export function Button({ loadMore }) {
   return (
     <>
@@ -7,3 +9,7 @@ export function Button({ loadMore }) {
     </>
   );
 }
+
+Button.propTypes = {
+  loadMore: PropTypes.func.isRequired,
+};
