@@ -6,6 +6,10 @@ export function Searchbar({ onSearch, page, loading, reset }) {
   const [query, setQuery] = useState('');
 
   useEffect(() => {
+    handleFetch();
+  }, [page, query]);
+
+  const handleFetch = () => {
     if (query) {
       loading();
       fetch(
@@ -17,7 +21,7 @@ export function Searchbar({ onSearch, page, loading, reset }) {
         })
         .finally(() => loading());
     }
-  }, [page, query]);
+  };
 
   const onSubmit = evt => {
     evt.preventDefault();
