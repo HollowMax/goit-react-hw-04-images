@@ -6,22 +6,21 @@ export function Searchbar({ onSearch, page, loading, reset }) {
   const [query, setQuery] = useState('');
 
   useEffect(() => {
+    const handleFetch = () => {
+      if (query) {
+        loading();
+        fetch(
+          `https://pixabay.com/api/?q=${query}&page=${page}&key=31430020-162717a02f14be47bba144d73&image_type=photo&orientation=horizontal&per_page=12`
+        )
+          .then(el => el.json())
+          .then(el => {
+            onSearch(el.hits);
+          })
+          .finally(() => loading());
+      }
+    };
     handleFetch();
   }, [page, query]);
-
-  const handleFetch = () => {
-    if (query) {
-      loading();
-      fetch(
-        `https://pixabay.com/api/?q=${query}&page=${page}&key=31430020-162717a02f14be47bba144d73&image_type=photo&orientation=horizontal&per_page=12`
-      )
-        .then(el => el.json())
-        .then(el => {
-          onSearch(el.hits);
-        })
-        .finally(() => loading());
-    }
-  };
 
   const onSubmit = evt => {
     evt.preventDefault();

@@ -4,15 +4,14 @@ import { createPortal } from 'react-dom';
 
 export function Modal({ data, onClose }) {
   useEffect(() => {
+    const onPress = evt => {
+      if (evt.code === 'Escape') {
+        onClose();
+      }
+    };
     window.addEventListener('keydown', onPress);
     return () => window.removeEventListener('keydown', onPress);
   }, []);
-
-  const onPress = evt => {
-    if (evt.code === 'Escape') {
-      onClose();
-    }
-  };
 
   const onClickClose = useCallback(evt => {
     if (evt.currentTarget === evt.target) {
