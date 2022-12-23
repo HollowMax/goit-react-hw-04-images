@@ -3,16 +3,20 @@ import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
 export function Modal({ data, onClose }) {
+  useEffect(
+    () => {
+      window.addEventListener('keydown', onPress);
+      return () => window.removeEventListener('keydown', onPress);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
   const onPress = evt => {
     if (evt.code === 'Escape') {
       onClose();
     }
   };
-
-  useEffect(() => {
-    window.addEventListener('keydown', onPress);
-    return () => window.removeEventListener('keydown', onPress);
-  }, [onPress]);
 
   const onClickClose = evt => {
     if (evt.currentTarget === evt.target) {

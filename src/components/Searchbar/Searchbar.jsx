@@ -1,11 +1,19 @@
 import PropTypes from 'prop-types';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 
 export function Searchbar({ onSearch, page, loading, reset }) {
   const [query, setQuery] = useState('');
 
-  const handleFetch = useCallback(() => {
+  useEffect(
+    () => {
+      handleFetch();
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [page, query]
+  );
+
+  const handleFetch = () => {
     console.log('a');
     if (query) {
       loading();
@@ -18,11 +26,7 @@ export function Searchbar({ onSearch, page, loading, reset }) {
         })
         .finally(() => loading());
     }
-  }, [query, page]);
-
-  useEffect(() => {
-    handleFetch();
-  }, [page, query, handleFetch]);
+  };
 
   const onSubmit = evt => {
     evt.preventDefault();
