@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 
 export function Searchbar({ onSearch, page, loading, reset }) {
   const [query, setQuery] = useState('');
 
-  const handleFetch = () => {
+  const handleFetch = useCallback(() => {
+    console.log('a');
     if (query) {
       loading();
       fetch(
@@ -17,7 +18,7 @@ export function Searchbar({ onSearch, page, loading, reset }) {
         })
         .finally(() => loading());
     }
-  };
+  }, [query, page]);
 
   useEffect(() => {
     handleFetch();
