@@ -1,23 +1,24 @@
 import PropTypes from 'prop-types';
-import { useEffect, useCallback } from 'react';
+import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
 export function Modal({ data, onClose }) {
+  const onPress = evt => {
+    if (evt.code === 'Escape') {
+      onClose();
+    }
+  };
+
   useEffect(() => {
-    const onPress = evt => {
-      if (evt.code === 'Escape') {
-        onClose();
-      }
-    };
     window.addEventListener('keydown', onPress);
     return () => window.removeEventListener('keydown', onPress);
-  }, []);
+  }, [onPress]);
 
-  const onClickClose = useCallback(evt => {
+  const onClickClose = evt => {
     if (evt.currentTarget === evt.target) {
       onClose();
     }
-  });
+  };
 
   return createPortal(
     <div className="Overlay" onClick={onClickClose}>
