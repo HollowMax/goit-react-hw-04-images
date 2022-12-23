@@ -14,7 +14,6 @@ export function Searchbar({ onSearch, page, loading, reset }) {
   );
 
   const handleFetch = () => {
-    console.log('a');
     if (query) {
       loading();
       fetch(
